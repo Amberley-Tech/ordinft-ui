@@ -6,7 +6,7 @@ import { uploadAndProcessFiles } from "../../../services/api/order";
 import { withAsync } from "../../../utils/withAsync";
 
 export default function FilesUpload({
-  files,
+  files = [],
   optimize,
   setFiles,
   setOptimize,
@@ -17,14 +17,14 @@ export default function FilesUpload({
 
   const fileTypes = ["JPG", "PNG"];
 
-  const handleFilesChange = async (selectedFiles) => {
+  const handleFilesChange = async (selectedFiles = []) => {
     if (selectedFiles.length > 1) {
       setOrderType("bulk");
     }
     await fileUploadHandler(selectedFiles);
   };
 
-  const fileUploadHandler = async (files) => {
+  const fileUploadHandler = async (files = []) => {
     setIsLoading(true);
     const result = [];
 
