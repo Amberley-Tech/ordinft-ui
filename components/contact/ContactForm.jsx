@@ -24,7 +24,7 @@ const ContactForm = () => {
     const { name, email, message } = contactForm;
 
     if (!name || !email || !message) {
-      setHasError(true);
+      setHasError(true)
     }
   };
 
