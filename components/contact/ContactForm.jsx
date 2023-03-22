@@ -1,12 +1,15 @@
 import Link from "next/link";
 import React from "react";
 
+const INITIAL_STATE = {
+  name: "",
+  email: "",
+  message: "",
+};
+
 const ContactForm = () => {
-  const [contactForm, setContactForm] = React.useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const [contactForm, setContactForm] = React.useState(INITIAL_STATE);
+  const [hasError, setHasError] = React.useState(null);
 
   const handleChange = (evt) => {
     setContactForm((oldVal) => ({
@@ -15,8 +18,22 @@ const ContactForm = () => {
     }));
   };
 
+  const handleSubmit = async () => {
+    setHasError(null);
+
+    const { name, email, message } = contactForm;
+
+    if (!name || !email || !message) {
+      setHasError(true);
+    }
+  };
+
   return (
-    <form id="contact-form" method="post">
+    <form
+      onSubmit={(evt) => evt.preventDefault()}
+      id="contact-form"
+      method="post"
+    >
       <div className="flex space-x-7">
         <div className="mb-6 w-1/2">
           <label className="font-display text-jacarta-700 mb-1 block text-sm dark:text-white">
@@ -68,6 +85,7 @@ const ContactForm = () => {
         type="submit"
         className="bg-accent shadow-accent-volume hover:bg-accent-dark rounded-full py-3 px-8 text-center font-semibold text-white transition-all"
         id="contact-form-submit"
+        onClick={handleSubmit}
       >
         Submit
       </button>
