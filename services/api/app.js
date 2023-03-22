@@ -15,3 +15,19 @@ export async function fetchLtcFeeRates() {
     return data;
   });
 }
+
+export async function userSupport(name, email, message) {
+  return fetch(`${API_URL}/usersupport`, {
+    method: "POST",
+    body: JSON.stringify({
+      name,
+      email,
+      message,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then(async (res) => {
+    return await res.json();
+  });
+}
