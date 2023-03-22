@@ -1,6 +1,20 @@
 import Link from "next/link";
+import React from "react";
 
 const ContactForm = () => {
+  const [contactForm, setContactForm] = React.useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (evt) => {
+    setContactForm((oldVal) => ({
+      ...oldVal,
+      [evt.target.name]: evt.target.value,
+    }));
+  };
+
   return (
     <form id="contact-form" method="post">
       <div className="flex space-x-7">
@@ -14,6 +28,8 @@ const ContactForm = () => {
             id="name"
             type="text"
             required
+            onChange={handleChange}
+            value={contactForm.name}
           />
         </div>
 
@@ -27,6 +43,8 @@ const ContactForm = () => {
             id="email"
             type="email"
             required
+            value={contactForm.email}
+            onChange={handleChange}
           />
         </div>
       </div>
@@ -41,6 +59,8 @@ const ContactForm = () => {
           required
           name="message"
           rows="5"
+          value={contactForm.message}
+          onChange={handleChange}
         ></textarea>
       </div>
 
