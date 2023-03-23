@@ -1,5 +1,7 @@
 import Link from "next/link";
 import React from "react";
+import { withAsync } from "../../utils/withAsync";
+import { userSupport } from "../../services/api/app";
 
 const INITIAL_STATE = {
   name: "",
@@ -10,6 +12,7 @@ const INITIAL_STATE = {
 const ContactForm = () => {
   const [contactForm, setContactForm] = React.useState(INITIAL_STATE);
   const [hasError, setHasError] = React.useState(null);
+  const [success, setSuccess] = React.useState(null);
 
   const handleChange = (evt) => {
     setContactForm((oldVal) => ({
@@ -26,6 +29,14 @@ const ContactForm = () => {
     if (!name || !email || !message) {
       setHasError(true);
     }
+
+    const { response, error } = await withAsync(() =>
+      userSupport(name, email, message)
+    );
+
+    if (response.success) {
+      setSuccess(true);
+    }
   };
 
   return (
@@ -38,6 +49,11 @@ const ContactForm = () => {
         {hasError && (
           <div className="font-display text-red mb-1 block text-sm dark:text-red">
             All fields are required.
+          </div>
+        )}
+        {success && (
+          <div className="font-display text-red mb-1 block text-sm dark:text-red">
+            Form Submitted Successfully.
           </div>
         )}
         <div className="mb-6 w-1/2">
