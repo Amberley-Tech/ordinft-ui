@@ -24,7 +24,7 @@ const ContactForm = () => {
     const { name, email, message } = contactForm;
 
     if (!name || !email || !message) {
-      setHasError(true)
+      setHasError(true);
     }
   };
 
@@ -35,6 +35,11 @@ const ContactForm = () => {
       method="post"
     >
       <div className="flex space-x-7">
+        {hasError && (
+          <div className="font-display text-red mb-1 block text-sm dark:text-red">
+            All fields are required.
+          </div>
+        )}
         <div className="mb-6 w-1/2">
           <label className="font-display text-jacarta-700 mb-1 block text-sm dark:text-white">
             Name<span className="text-red">*</span>
