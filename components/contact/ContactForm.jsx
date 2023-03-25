@@ -35,7 +35,7 @@ const ContactForm = () => {
     );
 
     if (response.success) {
-      setSuccess(true);
+      setSuccess(true)
     }
   };
 
